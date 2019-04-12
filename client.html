@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Robot Control Interface</title>
+	<link rel="stylesheet" type="text/css" href="css/ControllSite.css">
+    <script src="script_min.js"></script>
+    <script type="text/JavaScript">
+        var cmdUrl = "http://192.168.43.180:8080/robot.php?cmd=";
+        var cmdMap = {119:"forward", 97:"left", 100:"right", 115:"back", 104:"help", 101:"pivotR", 113:"pivotL", 27:"end"};
+        function keyPressed(e){
+            if(!(e.keyCode in cmdMap)) return;
+            var cmdFrame = document.getElementById("cmdFrame");
+            cmdFrame.src = cmdUrl+cmdMap[e.keyCode];
+        }
+    </script>
+  </head>
+  <body onkeypress="javascript:keyPressed(event);" onload="setTimeout('init();', 100);">
+	<center>
+      <div><img id="mjpeg_dest" /></div>
+	  <input type="button" value="Nazaj na začetno stran" onclick="index.php" class="btn btn-primary">
+    </center>
+    <iframe id="cmdFrame" src="http://192.168.43.180:8080/robot.php"></iframe>
+  </body>
+</html>
