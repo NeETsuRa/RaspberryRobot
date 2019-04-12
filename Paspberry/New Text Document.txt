@@ -1,0 +1,34 @@
+Embed live-preview in own homepage
+This is the minimal code to embed the preview:
+
+php:
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RPi Cam Preview</title>
+    <script src="script_min.js"></script>
+  </head>
+  <body onload="setTimeout('init();', 100);">
+    <center>
+      <div><img id="mjpeg_dest" /></div>
+    </center>
+ </body>
+</html>
+js:
+
+var mjpeg_img;
+ 
+function reload_img () {
+  mjpeg_img.src = "cam_pic.php?time=" + new Date().getTime();
+}
+function error_img () {
+  setTimeout("mjpeg_img.src = 'cam_pic.php?time=' + new Date().getTime();", 100);
+}
+function init() {
+  mjpeg_img = document.getElementById("mjpeg_dest");
+  mjpeg_img.onload = reload_img;
+  mjpeg_img.onerror = error_img;
+  reload_img();
+}
+The size can be changed either as parameter in /etc/raspimjpeg or with CSS. To add further features (change settings, record images/videos), study the existing homepage.
